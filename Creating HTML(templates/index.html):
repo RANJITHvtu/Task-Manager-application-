@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+  <h1>Task Manager</h1>
+
+  <div>
+    <h2>Tasks</h2>
+    <ul>
+      {% for task in tasks %}
+        <li id="task-{{ task[0] }}">
+          {{ task[1] }} - {{ task[2] }} - {{ task[3] }}
+          <button onclick="deleteTask({{ task[0] }})">Delete Task</button>
+          <button onclick="openUpdateTaskModal({{ task[0] }})">Update Task</button>
+        </li>
+      {% endfor %}
+    </ul>
+    <form action="/add_task" method="post" id="task-form">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description">
+      <label for="category">Category:</label>
+      <select id="category" name="category">
+        {% for category in categories %}
+          <option value="{{ category[0] }}">{{ category[1] }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
+  
+  <div>
+    <h2>Categories</h2>
+    <ul>
+      {% for category in categories %}
+        <li id="category-{{ category[0] }}">
+          {{ category[1] }}
+          <button onclick="deleteCategory({{ category[0] }})">Delete Category</button>
+          <button onclick="openUpdateCategoryModal({{ category[0] }})">Update Category</button>
+        </li>
+      {% endfor %}
+    </ul>
+    <form action="/add_category" method="post" id="category-form">
+      <label for="category-name">Category Name:</label>
+      <input type="text" id="category-name" name="name" required>
+      <button type="submit">Add Category</button>
+    </form>
+  </div>
+
+<div>
+  <h2>Tasks</h2>
+  <input type="text" id="search-bar" placeholder="Search tasks" oninput="searchTasks()">
+  <ul id="tasks-list">
+    {% for task in tasks %}
+      <li id="task-{{ task[0] }}">
+        {{ task[1] }} - {{ task[2] }} - {{ task[3] }}
+        <button onclick="deleteTask({{ task[0] }})">Delete Task</button>
+        <button onclick="openUpdateTaskModal({{ task[0] }})">Update Task</button>
+      </li>
+    {% endfor %}
+  </ul>
+  <form action="/add_task" method="post" id="task-form">
+    <!-- Your existing form code here -->
+  </form>
+</div>
+
+<script>
+  // Add this JavaScript function to handle the search functionality
+  function searchTasks() {
+    var searchInput = document.getElementById('search-bar').value.toLowerCase();
+    var tasksList = document.getElementById('tasks-list');
+    var tasks = tasksList.getElementsByTagName('li');
+
+    for (var i = 0; i < tasks.length; i++) {
+      var taskText = tasks[i].innerText.toLowerCase();
+
+      if (taskText.includes(searchInput)) {
+        tasks[i].style.display = '';
+      } else {
+        tasks[i].style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<!-- Your update task modal -->
+<div id="updateTaskModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeUpdateTaskModal()">&times;</span>
+    <h2>Update Task</h2>
+    <input type="text" id="update-task-title" placeholder="Task Title">
+    <textarea id="update-task-description" placeholder="Task Description"></textarea>
+    <button onclick="updateTask(1)">Update Task</button>
+  </div>
+</div>
+
+<!-- Your update category modal -->
+<div id="updateCategoryModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeUpdateCategoryModal()">&times;</span>
+    <h2>Update Category</h2>
+    <input type="text" id="update-category-name" placeholder="Category Name">
+    <button onclick="updateCategory(1)">Update Category</button>
+  </div>
+</div>
+</body>
+</html>
+
