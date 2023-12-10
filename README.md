@@ -10,28 +10,28 @@ pip install flask
 pip install sqlite3
 
 Example Tasks:
-"Complete Weekly Report"
-"Call Client for Project Update"
-"Attend Team Meeting at 2 PM"
-"Schedule Dentist Appointment"
-"Exercise for 30 Minutes"
-"Buy Groceries for the Week"
-"Send Birthday Wishes to Sarah"
+Complete Weekly Report,
+Call Client for Project Update,
+Attend Team Meeting at 2 PM,
+Schedule Dentist Appointment,
+Exercise for 30 Minutes,
+Buy Groceries for the Week,
+Send Birthday Wishes to Sarah.
 
 Example Categories:
-Work
-Personal
-Health
-Errands
-Meetings
-Projects
-Fitness
-Family
-Finances
-Study
-Social
-Hobbies
-Home
-Travel
-Appointments
-Entertainment
+Work,
+Personal,
+Health,
+Errands,
+Meetings,
+Projects,
+Fitness,
+Family,
+Finances,
+Study,
+Social,
+Hobbies,
+Home,
+Travel,
+Appointments,
+Entertainment.
